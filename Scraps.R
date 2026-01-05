@@ -180,6 +180,8 @@ plot(cmdscale(mod_10), col = c(1, rep(2,30)),
 plot(cmdscale(mod_1000), col = c(1, rep(2,30)),
      xlim=c(-0.5,0.5), ylim=c(-0.5,0.5))
 
+plot(cmdscale(mod_1000), col = c(1, rep(2,30)))
+
 par(mfrow=c(1,1))
 hcl <- hclust(mod_1000)
 plot(hcl)
