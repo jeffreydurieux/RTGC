@@ -1,0 +1,15 @@
+---
+title: "RTGC_info"
+author: "Jeffrey Durieux"
+date: "2026-01-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Regularization Towards Group Components (RGTC) information document.
+This produrce uses threeway data as input. A component analysis is performed on each individual matrix and a ridge like penalty is used on the difference between the individual component scores and a pre-specified (group) component score matrix. The stronger the penalty, the more alike the individual component scores are to the group components.
