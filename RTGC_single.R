@@ -11,7 +11,7 @@
 # center: centering of X
 # scale: scaling of X
 
-RTGC_single <- function(X, Q = ncol(S_G), S_G, lambda, n_iter = 20, ortho = TRUE, center = TRUE, scale = TRUE){
+RTGC_single <- function(X, Q = ncol(S_G), S_G, lambda, n_iter = 50, ortho = TRUE, center = TRUE, scale = TRUE){
   
   # Check if centering or scaling is necessary
   if (center || scale) {
@@ -121,7 +121,7 @@ sum((test$S - S_G)^2)
 seq <- c(0, .001, .01, 1, 10, 100, 1000, 10000)
 
 for(i in 1:length(seq)){
-  test <- RTGC_single(X = Xe$X[[1]], S_G = S_G, lambda = seq[i], ortho = F)
+  test <- RTGC_single(X = Xe$X[[1]], S_G = S_G, lambda = seq[i], ortho = T)
   
   t(test$S) %*% test$S
   round(t(test$S) %*% test$S, 5)
