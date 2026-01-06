@@ -22,8 +22,8 @@ RTGC_single <- function(X, Q = ncol(S_G), S_G, lambda, n_iter = 50, ortho = TRUE
   # Initialization
   
   sv <- svd(X, nu = Q, nv = Q)
-  S  <- sv$u[,1:Q] %*% diag(sv$d[1:Q])     # V x Q spatial components
-  A  <- t(sv$v[,1:Q])                      # Q x T temporal components
+  S  <- sv$u[,1:Q]                          # V x Q spatial components
+  A  <- diag(sv$d[1:Q]) %*% t(sv$v[, 1:Q])# Q x T temporal components
   
   
   for (it in 1:n_iter){
