@@ -19,10 +19,10 @@ sv <- svd(Xl, nu = 5)
 S_G <- sv$u[,1:5] %*% diag(sv$d[1:5])
 #S_G <- scale(S_G)
 
-test <- RTGC(Xlist = Xe$X, S_G = S_G, lambda = 0.00001 ortho = T, center = T, scale = T)
+test <- RTGC(Xlist = Xe$X, S_G = S_G, lambda = 0.00001, ortho = T, center = T, scale = T)
 
 Shats <- lapply(1:length(test), function(anom) test[[anom]]$S)
 Shats <- c(Shats, list(S_G))
-mod <- computeRVmat(Shats,dist = F)
-heatmap(mod)
+mod <- computeRVmat(Shats,dist = T)
+#heatmap(mod)
 plot(cmdscale(mod), asp = TRUE, col = c(rep(1, 30), 2))

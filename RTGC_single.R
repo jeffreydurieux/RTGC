@@ -57,48 +57,6 @@ RTGC_single <- function(X, Q = ncol(S_G), S_G, lambda, n_iter = 50, ortho = TRUE
   
 }
 
-
-
-pca_ls_spatial_penalty <- function(X, S_G, lambda, K = ncol(S_G), n_iter = 50, ortho = TRUE) {
-  
-  V  <- nrow(X)
-  Tn <- ncol(X)
-  
-  #### INITIALIZATION BY PCA/SVD ####
-  sv <- svd(X, nu = K, nv = K)
-  S  <- sv$u[,1:K] %*% diag(sv$d[1:K])     # V x K spatial components
-  A  <- t(sv$v[,1:K])                      # K x T temporal scores
-  
-  for (it in 1:n_iter) {
-    
-    #### 1) Update S with penalty ####
-    AA_t <- A %*% t(A)              # K x K
-    XA_t <- X %*% t(A)              # V x K
-    
-    # S = (X A^T + λ S_G)(A A^T + λ I)^(-1)
-    S <- (XA_t + lambda * S_G) %*% solve(AA_t + lambda * diag(K))
-    
-    #### 2) Update A (plain LS) ####
-    StS <- t(S) %*% S
-    SX  <- t(S) %*% X
-    A   <- solve(StS, SX)
-  }
-  
-  ### Do orthogonalisation
-  
-  if(ortho == TRUE){
-    qrS <- qr(S)
-    Q <- qr.Q(qrS)
-    R <- qr.R(qrS)
-    
-    S <- Q
-    A <- R %*% A
-  }
-  
-  return(list(S = S, A = A))
-}
-
-
 ##### minimal test ######
 library(CICA)
 library(multiway)
