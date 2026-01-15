@@ -26,3 +26,19 @@ Shats <- c(Shats, list(S_G))
 mod <- computeRVmat(Shats,dist = T)
 #heatmap(mod)
 plot(cmdscale(mod), asp = TRUE, col = c(rep(1, 30), 2))
+
+set.seed(123)
+
+par(mfrow=c(2,2))
+lam <- c(0, 0.01, 1, 10)
+for(l in 1:length(lam)){
+  test <- RTGC(Xlist = Xe$X, S_G = S_G, lambda = lam[l], ortho = T, center = T, scale = T)
+  
+  Shats <- lapply(1:length(test), function(anom) test[[anom]]$S)
+  Shats <- c(Shats, list(S_G))
+  mod <- computeRVmat(Shats,dist = T)
+  #heatmap(mod)
+  plot(cmdscale(mod), asp = TRUE, col = c(rep(1, 30), 2), xlim = c(-.5,.5), ylim = c(-.5,.5))
+  
+}
+
